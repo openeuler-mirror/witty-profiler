@@ -1,5 +1,0 @@
-﻿# MANIFEST.in
-include pyproject.toml
-recursive-include src/witty_profiler/tools/ebpftools *
-global-exclude *.pyc
-global-exclude __pycache__
