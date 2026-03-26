@@ -1,0 +1,23 @@
+{
+    "tmp_dir": "local/run/anansi",
+    "sniffer_config": {
+        "socket_sniffer": {
+            "socket_sniffer_binary_path": null,
+            "msg_style": "csv",
+            "report_maximum_interval_by_second": 1.0,
+            "entry_buffer_size": 2000,
+            "data_file_path": "anansi.socket_sniffer.csv"
+        }
+    },
+    "collector_config": {
+        "start_nodes": [],
+        "disabled_collectors": []
+    },
+    "server_config": {
+        "server_addr": {
+            "host": "0.0.0.0",
+            "port": 18090
+        },
+        "preferred_backend": null
+    }
+}

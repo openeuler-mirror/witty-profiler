@@ -1,0 +1,5 @@
+# MANIFEST.in
+include pyproject.toml
+recursive-include src/anansi/tools/ebpftools *
+global-exclude *.pyc
+global-exclude __pycache__
