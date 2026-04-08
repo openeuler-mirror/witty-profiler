@@ -1,0 +1,91 @@
+{
+  "skill_name": "bottleneck-identification",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "诊断这个 AI 训练系统的性能瓶颈，使用 7 层瓶颈框架进行全面分析",
+      "expected_output": "生成包含 7 层瓶颈分析的完整报告，识别所有瓶颈并提供优化建议",
+      "files": ["references/graph.json"],
+      "assertions": [
+        {
+          "name": "contains_seven_layers",
+          "description": "报告应包含 7 层瓶颈框架的分析",
+          "type": "contains",
+          "expected": ["Layer 1", "Layer 2", "Layer 3", "Layer 4", "Layer 5", "Layer 6", "Layer 7"]
+        },
+        {
+          "name": "identifies_bottlenecks",
+          "description": "报告应识别出具体的瓶颈问题",
+          "type": "contains",
+          "expected": ["瓶颈", "bottleneck", "问题"]
+        },
+        {
+          "name": "provides_recommendations",
+          "description": "报告应提供优化建议",
+          "type": "contains",
+          "expected": ["建议", "recommendation", "优化"]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "分析这个系统的内存层瓶颈，重点检查缓存缺失和内存带宽问题",
+      "expected_output": "识别内存层瓶颈，包括 Cache Miss Storm、Memory Bandwidth Wall 等，提供证据和优化建议",
+      "files": [],
+      "assertions": [
+        {
+          "name": "analyzes_memory_layer",
+          "description": "报告应分析内存层（Layer 2）",
+          "type": "contains",
+          "expected": ["Layer 2", "内存", "Memory"]
+        },
+        {
+          "name": "identifies_memory_bottlenecks",
+          "description": "报告应识别内存相关的瓶颈",
+          "type": "contains",
+          "expected": ["缓存", "Cache", "带宽", "Bandwidth"]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "检查是否存在通信瓶颈，分析跨 NUMA 访问和网络通信问题",
+      "expected_output": "识别通信瓶颈，包括 Cross-NUMA Access、Network Congestion 等，提供优化方案",
+      "files": [],
+      "assertions": [
+        {
+          "name": "analyzes_communication",
+          "description": "报告应分析通信相关层次",
+          "type": "contains",
+          "expected": ["NUMA", "网络", "Network", "通信"]
+        },
+        {
+          "name": "identifies_communication_bottlenecks",
+          "description": "报告应识别通信瓶颈",
+          "type": "contains",
+          "expected": ["跨", "Cross", "拥塞", "Congestion"]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "生成瓶颈诊断报告，按优先级提供可操作的优化建议",
+      "expected_output": "生成结构化的瓶颈诊断报告，包含执行摘要、详细分析、优化建议优先级和实施路线图",
+      "files": [],
+      "assertions": [
+        {
+          "name": "has_executive_summary",
+          "description": "报告应包含执行摘要",
+          "type": "contains",
+          "expected": ["摘要", "Summary", "概览"]
+        },
+        {
+          "name": "prioritizes_recommendations",
+          "description": "报告应按优先级排序建议",
+          "type": "contains",
+          "expected": ["优先级", "Priority", "P0", "P1", "P2"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "skill_name": "hotspot-thread-discovery",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "分析这个 graph.json 文件中的热点线程，找出 CPU 使用率最高和 NUMA 亲和性问题最严重的线程",
+      "expected_output": "识别出热点线程列表，包括 CPU 使用率、NUMA 亲和性评分、瓶颈类型和优化建议",
+      "files": ["references/graph.json"],
+      "assertions": [
+        {
+          "name": "identifies_hotspot_threads",
+          "description": "报告应识别热点线程",
+          "type": "contains",
+          "expected": ["热点", "Hotspot", "线程", "Thread"]
+        },
+        {
+          "name": "provides_cpu_usage",
+          "description": "报告应包含 CPU 使用率信息",
+          "type": "contains",
+          "expected": ["CPU", "使用率", "Usage"]
+        },
+        {
+          "name": "analyzes_numa_affinity",
+          "description": "报告应分析 NUMA 亲和性",
+          "type": "contains",
+          "expected": ["NUMA", "亲和", "Affinity"]
+        },
+        {
+          "name": "classifies_bottleneck_type",
+          "description": "报告应分类瓶颈类型",
+          "type": "contains",
+          "expected": ["瓶颈", "Bottleneck", "类型", "Type"]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "检查这些线程的上下文切换情况，识别是否存在竞争问题",
+      "expected_output": "分析上下文切换率，识别自愿/非自愿切换比例，诊断锁竞争或 CPU 竞争问题",
+      "files": [],
+      "assertions": [
+        {
+          "name": "analyzes_context_switches",
+          "description": "报告应分析上下文切换",
+          "type": "contains",
+          "expected": ["上下文", "Context", "切换", "Switch"]
+        },
+        {
+          "name": "identifies_switch_types",
+          "description": "报告应区分切换类型",
+          "type": "contains",
+          "expected": ["自愿", "Voluntary", "非自愿", "Involuntary"]
+        },
+        {
+          "name": "diagnoses_contention",
+          "description": "报告应诊断竞争问题",
+          "type": "contains",
+          "expected": ["竞争", "Contention", "锁", "Lock"]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "分析 sched_monitor 数据，找出调度延迟最高的线程并给出优化建议",
+      "expected_output": "从调度数据中识别热点线程，分析调度延迟原因，提供针对性的优化建议",
+      "files": [],
+      "assertions": [
+        {
+          "name": "analyzes_sched_data",
+          "description": "报告应分析调度数据",
+          "type": "contains",
+          "expected": ["调度", "Schedule", "sched"]
+        },
+        {
+          "name": "identifies_latency_issues",
+          "description": "报告应识别延迟问题",
+          "type": "contains",
+          "expected": ["延迟", "Latency", "等待", "Wait"]
+        },
+        {
+          "name": "provides_recommendations",
+          "description": "报告应提供优化建议",
+          "type": "contains",
+          "expected": ["建议", "Recommendation", "优化"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "skill_name": "dataflow-topology-restore",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "分析 witty-profiler 采集的 Graph 数据，识别系统中的数据流拓扑。Graph 文件位于 c:\\Users\\h00932560\\Desktop\\hjf\\Anansi\\references\\graph.json。请识别：1) 主进程和 Worker 进程的关系 2) NPU-NUMA 映射关系 3) 是否存在跨 NUMA 访问问题",
+      "expected_output": "数据流拓扑分析报告，包含进程层级、NPU-NUMA 映射、性能瓶颈识别",
+      "files": ["c:\\Users\\h00932560\\Desktop\\hjf\\Anansi\\references\\graph.json"],
+      "assertions": [
+        {
+          "name": "identifies_process_hierarchy",
+          "description": "报告应识别进程层级关系",
+          "type": "contains",
+          "expected": ["进程", "Process", "Worker", "主进程"]
+        },
+        {
+          "name": "identifies_npu_numa_mapping",
+          "description": "报告应识别 NPU-NUMA 映射",
+          "type": "contains",
+          "expected": ["NPU", "NUMA", "映射", "Mapping"]
+        },
+        {
+          "name": "analyzes_numa_access",
+          "description": "报告应分析 NUMA 访问问题",
+          "type": "contains",
+          "expected": ["跨", "Cross", "NUMA", "访问"]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "从 Anansi Graph 中识别 Tensor Parallel 数据流模式。检查 Worker 进程是否正确绑定到对应的 NUMA 节点，并给出优化建议。",
+      "expected_output": "Tensor Parallel 模式识别结果，NUMA 亲和性分析，优化建议",
+      "files": [],
+      "assertions": [
+        {
+          "name": "identifies_tensor_parallel",
+          "description": "报告应识别 Tensor Parallel 模式",
+          "type": "contains",
+          "expected": ["Tensor", "Parallel", "并行"]
+        },
+        {
+          "name": "analyzes_numa_affinity",
+          "description": "报告应分析 NUMA 亲和性",
+          "type": "contains",
+          "expected": ["亲和", "Affinity", "绑定"]
+        },
+        {
+          "name": "provides_recommendations",
+          "description": "报告应提供优化建议",
+          "type": "contains",
+          "expected": ["建议", "Recommendation", "优化"]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "分析系统中的进程间通信模式。识别 Socket 通信、共享内存通信和 RDMA 通信，并评估各通信方式的带宽使用情况。",
+      "expected_output": "IPC 模式分析报告，通信带宽评估",
+      "files": [],
+      "assertions": [
+        {
+          "name": "identifies_ipc_patterns",
+          "description": "报告应识别 IPC 模式",
+          "type": "contains",
+          "expected": ["Socket", "共享内存", "Shared Memory", "RDMA"]
+        },
+        {
+          "name": "evaluates_bandwidth",
+          "description": "报告应评估带宽使用",
+          "type": "contains",
+          "expected": ["带宽", "Bandwidth", "吞吐", "Throughput"]
+        }
+      ]
+    }
+  ]
+}
