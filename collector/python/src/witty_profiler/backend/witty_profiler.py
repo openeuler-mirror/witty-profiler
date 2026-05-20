@@ -111,9 +111,11 @@ class WittyProfilerServer(ThreadSafeSingleton):
         Raises:
             RuntimeError: If FastAPI unavailable (from OnlineDisabledServer)
         """
-        # Use config defaults if not specified
-        addr = addr or self._config.server_addr.host
-        port = port or self._config.server_addr.port
+        # Use config defaults only when the caller omits the value.
+        if addr is None:
+            addr = self._config.server_addr.host
+        if port is None:
+            port = self._config.server_addr.port
 
         LOGGER.info(f"Starting server on {addr}:{port}")
         self._backend.run_online(addr, port)

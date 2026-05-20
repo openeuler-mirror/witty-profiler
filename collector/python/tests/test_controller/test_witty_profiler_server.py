@@ -292,6 +292,40 @@ class TestWittyProfilerServer(unittest.TestCase):
     @patch("witty_profiler.backend.witty_profiler.GlobalConfigManager")
     @patch("witty_profiler.backend.witty_profiler.WittyProfilerCore")
     @patch("witty_profiler.backend.witty_profiler.ServerFactory")
+    def test_run_online_preserves_zero_port_override(
+        self, mock_factory_class, mock_core_class, mock_config_class
+    ):
+        """Ensure port=0 is forwarded instead of replaced by config defaults."""
+        from witty_profiler.backend.witty_profiler import WittyProfilerServer
+
+        WittyProfilerServer.clear_singleton()
+
+        mock_config = Mock()
+        mock_config.server_config = ServerConfig(
+            server_addr={"host": "0.0.0.0", "port": 18090}, preferred_backend=None
+        )
+        mock_config_mgr = Mock()
+        mock_config_mgr.get_config.return_value = mock_config
+        mock_config_class.return_value = mock_config_mgr
+
+        mock_core = Mock()
+        mock_core_class.get_instance.return_value = mock_core
+
+        mock_backend = MockServer(mock_core)
+        mock_factory = Mock()
+        mock_factory.create_server.return_value = mock_backend
+        mock_factory_class.return_value = mock_factory
+
+        server = WittyProfilerServer()
+        server.run_online(addr="127.0.0.1", port=0)
+
+        self.assertTrue(mock_backend.run_online_called)
+        self.assertEqual(mock_backend.online_addr, "127.0.0.1")
+        self.assertEqual(mock_backend.online_port, 0)
+
+    @patch("witty_profiler.backend.witty_profiler.GlobalConfigManager")
+    @patch("witty_profiler.backend.witty_profiler.WittyProfilerCore")
+    @patch("witty_profiler.backend.witty_profiler.ServerFactory")
     def test_run_offline(self, mock_factory_class, mock_core_class, mock_config_class):
         """测试运行离线模式。
 
