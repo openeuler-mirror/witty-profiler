@@ -340,7 +340,7 @@ class HCCSMonitor:
                 break
 
             try:
-                readable, _, _ = select.select([self._proc.stdout], [], [], timeout=0.1)
+                readable, _, _ = select.select([self._proc.stdout], [], [], 0.1)
             except (ValueError, OSError):
                 break
 
