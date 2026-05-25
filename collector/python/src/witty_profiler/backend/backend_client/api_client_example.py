@@ -101,7 +101,9 @@ class ExampleClient:
                         input("Dump path [local/topology.json]: ").strip()
                         or "local/topology.json"
                     )
-                    os.makedirs(os.path.dirname(dump_path), exist_ok=True)
+                    dump_dir = os.path.dirname(dump_path)
+                    if dump_dir:
+                        os.makedirs(dump_dir, exist_ok=True)
                     with open(dump_path, "wt") as f:
                         f.write(json.dumps(graph, indent=2))
                 elif choice == "8":

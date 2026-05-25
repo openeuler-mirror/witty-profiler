@@ -1,4 +1,5 @@
 import json
+import os
 from typing import Optional
 
 from witty_profiler.common.logging import get_logger
@@ -29,6 +30,9 @@ class GraphViewTool(Singleton):
             if output_file is None:
                 LOGGER.info("Graph: \n%s", graph.describe())
             else:
+                output_dir = os.path.dirname(output_file)
+                if output_dir:
+                    os.makedirs(output_dir, exist_ok=True)
                 with open(output_file, "wt", encoding="utf-8") as f:
                     f.write(graph.describe())
 

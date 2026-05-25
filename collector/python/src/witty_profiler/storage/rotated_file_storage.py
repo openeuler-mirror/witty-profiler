@@ -13,7 +13,9 @@ class RotatedFileStorage:
         max_rotation_cnt: int = 3,
     ):
         self._log_file_path_prefix = log_file_path_prefix
-        os.makedirs(os.path.dirname(log_file_path_prefix), exist_ok=True)
+        log_dir = os.path.dirname(log_file_path_prefix)
+        if log_dir:
+            os.makedirs(log_dir, exist_ok=True)
 
         self._max_size_in_mb = max_size_in_mb
         self._rotation_cnt = max_rotation_cnt

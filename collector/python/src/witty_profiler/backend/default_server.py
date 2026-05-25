@@ -69,9 +69,9 @@ class OnlineDisabledServer(Server):
             "topology_graph.txt"
         )
 
-        with open(target_json_path, "w") as f:
+        with open(target_json_path, "w", encoding="utf-8") as f:
             f.write(json.dumps(graph.model_dump(), indent=2))
-        with open(target_text_path, "w") as f:
+        with open(target_text_path, "w", encoding="utf-8") as f:
             f.write(graph.describe())
 
         LOGGER.report("Topology summary written to %s", target_text_path)
