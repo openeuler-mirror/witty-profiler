@@ -118,8 +118,9 @@ class GlobalConfigManager(Singleton):
 
     def dump_config(self, path: str):
         """Dump the current configuration to a file."""
-
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+        path_dir = os.path.dirname(path)
+        if path_dir:
+            os.makedirs(path_dir, exist_ok=True)
         with open(path, "w") as f:
             json.dump(asdict(self._config), f, indent=4)
         LOGGER.info("Configuration dumped to %s", path)

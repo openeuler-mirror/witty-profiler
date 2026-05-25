@@ -223,8 +223,9 @@ class SocketMonitor(ABC):
             max_size_in_mb=self._config.maximum_log_file_size_in_mb,
             max_rotation_cnt=self._config.maximum_rotation_cnt,
         )
-        os.makedirs(os.path.dirname(self._data_file), exist_ok=True)
-
+        data_dir = os.path.dirname(self._data_file)
+        if data_dir:
+            os.makedirs(data_dir, exist_ok=True)
         # 注册退出清理
         atexit.register(self._cleanup)
 

@@ -55,7 +55,7 @@ Notes:
 import json
 from dataclasses import field
 from typing import Optional
-
+import os
 import requests
 
 from witty_profiler.common.logging import get_logger
@@ -101,6 +101,9 @@ class FileGraphDescSubscriber(GraphSubscriber):
         """
         接收更新的图数据并写入文件
         """
+        dump_dir = os.path.dirname(self.dump_path)
+        if dump_dir:
+            os.makedirs(dump_dir, exist_ok=True)
         with open(self.dump_path, self.mode) as f:
             f.write(entity.describe() + "\n")
 
@@ -119,6 +122,9 @@ class FileJsonGraphSubscriber(GraphSubscriber):
         """
         接收更新的图数据并以JSON格式写入文件
         """
+        dump_dir = os.path.dirname(self.dump_path)
+        if dump_dir:
+            os.makedirs(dump_dir, exist_ok=True)
         with open(self.dump_path, self.mode) as f:
             json.dump(target.model_dump(), f)
             f.write("\n")

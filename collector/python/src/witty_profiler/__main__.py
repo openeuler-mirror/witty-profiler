@@ -199,10 +199,10 @@ Examples:
             # CLI args override config
             config_mgr = GlobalConfigManager.get_instance()
             server_config = config_mgr.get_config().server_config
-            host = args.host or server_config.server_addr.host
-            port = args.port or server_config.server_addr.port
+            host = args.host if args.host is not None else server_config.server_addr.host
+            port = args.port if args.port is not None else server_config.server_addr.port
 
-            if args.host or args.port:
+            if args.host is not None or args.port is not None:
                 LOGGER.info("Using CLI arguments to override config")
 
             LOGGER.info("Press Ctrl+C to stop the server")
