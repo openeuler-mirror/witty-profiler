@@ -248,21 +248,8 @@ class DepBuilder:
         """
         # create build directory
         os.makedirs(dir_path, exist_ok=True)
-        # clean previous build
-        try:
-            self._try_execute_cmd(
-                [
-                    "cmake",
-                    "--build",
-                    dir_path,
-                    "--target",
-                    "clean",
-                ]
-            )
-        except RuntimeError:
-            LOGGER.warning("Clean target failed, could be first build.")
 
-        # cmake configuration
+        # cmake configuration (generate CMakeCache.txt)
         try:
             self._try_execute_cmd(
                 [
@@ -281,6 +268,19 @@ class DepBuilder:
             )
         except RuntimeError as e:
             return f"cmake failed for {e}", False
+
+        try:
+            self._try_execute_cmd(
+                [
+                    "cmake",
+                    "--build",
+                    dir_path,
+                    "--target",
+                    "clean",
+                ]
+            )
+        except RuntimeError:
+            LOGGER.warning("Clean target failed unexpectedly.")
 
         # build binary
         try:
