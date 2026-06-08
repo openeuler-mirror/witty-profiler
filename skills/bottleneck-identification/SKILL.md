@@ -1,13 +1,12 @@
 ---
 name: bottleneck-identification
 description: |
-  Systematic methodology for diagnosing performance bottlenecks in AI training infrastructures. 
-  Use this skill whenever the user mentions ANY performance-related keywords including "slow", 
-  "bottleneck", "performance issue", "degradation", "optimization", "diagnosis", "latency", 
-  "throughput", "efficiency", or when analyzing Anansi graphs, system metrics, or performance data.
-  Even if the user doesn't explicitly ask for bottleneck analysis, proactively apply this skill 
-  when performance data is available. This skill provides the 7-layer bottleneck framework to 
-  systematically identify and diagnose performance issues in AI training systems.
+  Diagnose performance bottlenecks in AI training infrastructures using the 7-layer framework
+  (Compute, Memory, Interconnect, Network, Storage, Control Plane, Data Plane). Use ONLY when
+  the user asks for comprehensive cross-layer performance diagnosis with keywords like "slow",
+  "bottleneck", "performance issue", "degradation", "optimization", "diagnosis", "latency",
+  "throughput", "efficiency". Use dataflow-topology-restore for Anansi graph/topology reconstruction,
+  and hotspot-thread-discovery for thread-level hotspot and system metrics analysis.
 ---
 
 # 瓶颈问题识别 Skill

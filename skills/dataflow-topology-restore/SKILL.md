@@ -1,7 +1,12 @@
 ---
 name: dataflow-topology-restore
 description: |
-  Expert guidance for reconstructing data flow topologies from witty-profiler (Anansi) system graphs. Use this skill whenever the user asks about analyzing system topology, identifying NCCL/HCCL communication paths, cross-NUMA access patterns, inter-process communication flows, NPU/GPU data paths, or understanding how data moves through AI training systems. Automatically trigger when keywords like "topology", "data flow", "communication path", "NCCL", "HCCL", "NUMA mapping", "NPU access", or "Anansi graph" are detected in the conversation. This skill teaches LLMs how to read Anansi Graph JSON files and reconstruct complete data flow topologies.
+  Reconstruct data flow topologies from witty-profiler (Anansi) system graphs. Use ONLY when
+  keywords like "Anansi graph", "topology", "data flow", "communication path", "NCCL", "HCCL",
+  "NUMA mapping", "NPU access", or "inter-process communication" are mentioned, or when the user
+  asks how data moves through the AI training system. This is the exclusive skill for "Anansi graph"
+  keyword. Use bottleneck-identification for comprehensive performance diagnosis, and
+  hotspot-thread-discovery for thread-level hotspot analysis.
 ---
 
 # 数据流拓扑还原 Skill

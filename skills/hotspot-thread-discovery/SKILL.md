@@ -1,7 +1,12 @@
 ---
 name: hotspot-thread-discovery
 description: |
-  Identify performance hotspot threads and processes in AI training systems from witty-profiler (Anansi) data. Use this skill when the user wants to analyze CPU usage patterns, detect hotspot threads, investigate NUMA affinity issues, analyze context switches, or identify performance bottlenecks in multi-threaded AI workloads. Automatically trigger when ThreadEntity, ProcessEntity, sched_monitor data, or numa_access_info are detected in the conversation context.
+  Identify hotspot threads and processes in AI training systems from witty-profiler (Anansi) data.
+  Use ONLY when keywords like "hotspot thread", "CPU usage pattern", "context switch",
+  "sched_monitor", "system metrics" (CPU/NUMA/thread-level monitoring data), "ThreadEntity",
+  "ProcessEntity", or "numa_access_info" are mentioned, or when analyzing thread/process-level
+  performance data. Use bottleneck-identification for comprehensive cross-layer performance
+  diagnosis, and dataflow-topology-restore for Anansi graph topology reconstruction.
 ---
 
 # 热点线程发现 Skill
