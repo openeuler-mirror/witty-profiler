@@ -67,6 +67,14 @@ class NumaSniffer:
         Returns:
             NUMA access information for the process
         """
+        # If the process no longer exists, warn and return early
+        if not os.path.exists(f"/proc/{pid}"):
+            LOGGER.warning(
+                f"Process with PID {pid} no longer exists (/proc/{pid} not found). "
+                f"Skipping NUMA access info collection for this process."
+            )
+            return None
+
         root_path = f"/proc/{pid}"
         try:
             with open(f"{root_path}/numa_maps", "r") as f:

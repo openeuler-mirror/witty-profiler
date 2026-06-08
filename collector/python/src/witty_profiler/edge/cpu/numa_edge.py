@@ -40,14 +40,17 @@ class NumaAffinityInfo:
         self.total_dirty_anon_pages = int(sum(self.mem_pages_in_each_numa))
         self.mem_pages_in_each_numa = list(map(int, self.mem_pages_in_each_numa))
         if self.cpu_mem_access_cosine_similarity is None:
-            self.cpu_mem_access_cosine_similarity = sum(
-                [
-                    pct * page / self.total_dirty_anon_pages
-                    for pct, page in zip(
-                        self.cpu_runtime_pct_in_each_numa, self.mem_pages_in_each_numa
-                    )
-                ]
-            )
+            if self.total_dirty_anon_pages == 0:
+                self.cpu_mem_access_cosine_similarity = 0.0
+            else:
+                self.cpu_mem_access_cosine_similarity = sum(
+                    [
+                        pct * page / self.total_dirty_anon_pages
+                        for pct, page in zip(
+                            self.cpu_runtime_pct_in_each_numa, self.mem_pages_in_each_numa
+                        )
+                    ]
+                )
 
     def __str__(self) -> str:
         # return f"[NumaAffinity]{json.dumps(asdict(self), indent=2)}"
