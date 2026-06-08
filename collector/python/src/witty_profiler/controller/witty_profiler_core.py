@@ -147,8 +147,8 @@ class WittyProfilerCore(ThreadSafeSingleton):
                     break
                 # wake up
                 self.trigger_collect()
-        except RuntimeError as e:
-            LOGGER.error("CollectorOrchestrator loop error:%s", e)
+        except Exception as e:
+            LOGGER.error("CollectorOrchestrator loop error:%s", e, exc_info=True)
 
     def trigger_collect(self):
         """

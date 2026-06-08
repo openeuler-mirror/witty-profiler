@@ -41,6 +41,7 @@ Notes:
 
 import argparse
 import json
+import os
 import sys
 
 from witty_profiler.collector.local_collector.static_collector import StaticCollector
@@ -128,6 +129,13 @@ Examples:
         type=int,
         help="Target process ID to monitor (optional, overrides config start_nodes)",
     )
+    parser.add_argument(
+        "--fast-fail",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="When --pid specifies a non-existent process: True aborts "
+        "immediately; False skips the check and continues",
+    )
 
     args = parser.parse_args()
 
@@ -168,6 +176,12 @@ Examples:
             return
 
         if args.pid:
+            if args.fast_fail and not os.path.exists(f"/proc/{args.pid}"):
+                LOGGER.error(
+                    f"Process with PID {args.pid} does not exist (/proc/{args.pid} not found). "
+                    f"Aborting. To skip this check, use --no-fast-fail."
+                )
+                sys.exit(1)
             LOGGER.info(f"Adding process with PID {args.pid} as seed node")
             StaticCollector().add_process_as_seed(args.pid)
 

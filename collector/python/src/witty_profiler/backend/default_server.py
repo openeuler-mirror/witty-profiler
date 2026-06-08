@@ -20,6 +20,7 @@ Notes:
 """
 
 import json
+import signal
 import time
 
 from witty_profiler.backend.base import Server
@@ -49,10 +50,29 @@ class OnlineDisabledServer(Server):
         Args:
             duration: Collection duration in seconds
         """
+        # Register SIGTERM handler for graceful shutdown when killed
+        original_sigterm_handler = signal.getsignal(signal.SIGTERM)
+
+        def _sigterm_handler(signum, frame):
+            LOGGER.info("Received SIGTERM, shutting down gracefully...")
+            self._core.stop()
+            signal.signal(signal.SIGTERM, original_sigterm_handler)
+            raise SystemExit(0)
+
+        signal.signal(signal.SIGTERM, _sigterm_handler)
+
+        interrupted = False
         self._core.start()
         LOGGER.info(f"Running Witty Profiler offline for {duration} seconds...")
-        time.sleep(duration)
-        LOGGER.info(f"Stopping Witty Profiler after {duration} seconds...")
+        try:
+            time.sleep(duration)
+        except KeyboardInterrupt:
+            LOGGER.warning("Received interrupt signal, collecting data before shutdown...")
+            interrupted = True
+        LOGGER.info(
+            "Stopping Witty Profiler %s...",
+            "after interrupt" if interrupted else f"after {duration} seconds",
+        )
         LOGGER.debug("Collection complete. Stopping core...")
         self._core.stop()
         LOGGER.debug("Triggering final collection...")
